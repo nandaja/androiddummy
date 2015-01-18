@@ -11,4 +11,4 @@ Completed user stories :
 
 Walkthrough of all user stories : 
 
-![ScreenShot](https://raw.github.com/nandaja/androiddummy/app/todoapp1.gif)
+![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/app/todoapp1.gif)
