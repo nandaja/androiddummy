@@ -1,6 +1,7 @@
 
 This is a "Popular Photos" app that allows for viewing popular photo stream from Instagram
-Time Spent : approx. 10 hours 
+
+Time Spent : approx. 12 hours 
 
 Completed user stories : 
 
