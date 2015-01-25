@@ -10,8 +10,11 @@ Completed user stories :
         (Optional) relative timestamp, like count, user profile image
 
 2) Show latest comment for each photo ( Suggested - comments are displayed in a dialog fragment ) 
+
 3) Display each photo with the same style and proportions as the real Instagram ( Suggested - Attempted to do this - not sure if it has worked out as expected :-) ) 
+
 4) Display each user profile image using a RoundedImageView (Suggested)
+
 5) Allow user to view all comments for an image within a separate screen or a dialog fragment (Suggested - comments are displayed in a dialog fragment ) 
 
-![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/Instagramviewer/instagram.gif)
+![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/Instagramviewer/instagramapp.gif)
