@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,9 @@ public class CommentEntriesAdapter extends ArrayAdapter<CommentEntries> {
         // Lookup view for data population
         TextView tvComment = (TextView) convertView.findViewById(R.id.tvComment);
         TextView tvCommentUser = (TextView) convertView.findViewById(R.id.tvCommentUser);
+        ImageView ivCommentUserProfilePic = (ImageView) convertView.findViewById(R.id.ivCommentUserProfilePic);
+
+        Picasso.with(getContext()).load(comment.getCommentUserPicUrl()).into(ivCommentUserProfilePic);
         tvComment.setText(comment.getComment());
         tvCommentUser.setText(comment.getCommentUser());
         return convertView;

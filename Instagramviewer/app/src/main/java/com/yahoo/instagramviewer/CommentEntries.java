@@ -9,6 +9,9 @@ public class CommentEntries {
     private String commentUser;
     private String comment;
 
+
+    private String commentUserPicUrl;
+
     public String getCommentUser() {
         return commentUser;
     }
@@ -23,6 +26,14 @@ public class CommentEntries {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getCommentUserPicUrl() {
+        return commentUserPicUrl;
+    }
+
+    public void setCommentUserPicUrl(String commentUserPicUrl) {
+        this.commentUserPicUrl = commentUserPicUrl;
     }
 
 }

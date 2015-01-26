@@ -68,15 +68,17 @@ public class InstagramManagerImpl implements InstagramManager {
                                         if (d.getComments() != null) {
 
                                             e.setCommentCount(d.getComments().getCount().toString());
-                                            CommentData c = d.getComments().getData().get(0);
-                                            if (c != null) {
-                                                e.setComment1(c.getText());
-                                                e.setComment1User(c.getFrom().getUsername());
-                                            }
-                                            c = d.getComments().getData().get(1);
-                                            if (c != null) {
-                                                e.setComment2(c.getText());
-                                                e.setComment2User(c.getFrom().getUsername());
+                                            if(d.getComments().getData().size()!=0) {
+                                                CommentData c = d.getComments().getData().get(0);
+                                                if (c != null) {
+                                                    e.setComment1(c.getText());
+                                                    e.setComment1User(c.getFrom().getUsername());
+                                                }
+                                                c = d.getComments().getData().get(1);
+                                                if (c != null) {
+                                                    e.setComment2(c.getText());
+                                                    e.setComment2User(c.getFrom().getUsername());
+                                                }
                                             }
                                         }
 
@@ -86,6 +88,7 @@ public class InstagramManagerImpl implements InstagramManager {
                                             CommentEntries comment = new CommentEntries();
                                             comment.setCommentUser(c.getFrom().getUsername());
                                             comment.setComment(c.getText());
+                                            comment.setCommentUserPicUrl(c.getFrom().getProfile_picture());
                                             comments.add(comment);
                                         }
                                         e.setComments(comments);
