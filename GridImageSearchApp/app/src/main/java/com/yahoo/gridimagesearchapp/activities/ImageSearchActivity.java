@@ -2,15 +2,20 @@ package com.yahoo.gridimagesearchapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.*;
 import android.view.View;
+import android.view.MenuItem;
+
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.support.v7.widget.SearchView;
 
 import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.AsyncHttpClient;
@@ -26,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 
 
 public class ImageSearchActivity extends ActionBarActivity {
@@ -38,6 +44,7 @@ public class ImageSearchActivity extends ActionBarActivity {
     private static final int REQUEST_RESULT = 50;
     SettingsData settings;
     String query;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,30 +55,13 @@ public class ImageSearchActivity extends ActionBarActivity {
         imageResultsAdapter = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(imageResultsAdapter);
 
-        gvResults.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to your AdapterView
-                // customLoadMoreDataFromApi(page);
-                // or customLoadMoreDataFromApi(totalItemsCount);
-
-                if(totalItemsCount >= 64) {
-                    return;
-                }
-                System.out.println(page);
-
-                getImageData(totalItemsCount, false);
-            }
-        });
-
     }
 
 
 
 
     private void setUpViews() {
-        etQuery = (EditText) findViewById(R.id.etQuery);
+       // etQuery = (EditText) findViewById(R.id.etQuery);
         gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -85,14 +75,54 @@ public class ImageSearchActivity extends ActionBarActivity {
             }
         });
 
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                // customLoadMoreDataFromApi(page);
+                // or customLoadMoreDataFromApi(totalItemsCount);
+
+                System.out.println("NANDAJA :  offset is " + totalItemsCount + "page is " + page);
+                if(totalItemsCount >= 64) {
+                    return;
+                }
+                getImageData(totalItemsCount, false);
+            }
+        });
+
+
 
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_image_search, menu);
         return true;
+    }*/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.menu_image_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String q) {
+                // perform query here
+                query = q;
+                getImageData(0, true);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -119,12 +149,6 @@ public class ImageSearchActivity extends ActionBarActivity {
 
     }
 
-    //Fired when the button is clicked
-    public void onImageSearch(View v) {
-
-        query = etQuery.getText().toString();
-        getImageData(0, true);
-    }
 
     private void getImageData(int offset, final boolean clearPrevious) {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -145,25 +169,25 @@ public class ImageSearchActivity extends ActionBarActivity {
                 searchUrl = searchUrl + "&aa_sitesearch=" + settings.getSite();
             }
         }
-        System.out.println("Image search URL is : " + searchUrl);
+        System.out.println("NANDAJA : Image search URL is : " + searchUrl);
         client.get(searchUrl, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("DEBUG", response.toString());
+
                 try {
                     JSONArray imageArray = response.getJSONObject("responseData").getJSONArray("results");
                     if(clearPrevious) {
                         imageResults.clear();//clear only for new search - do not clear while paginating
                         imageResultsAdapter.clear();
                     }
+
                     imageResults.addAll(ImageResult.fromJson(imageArray));
-                    imageResultsAdapter.addAll(imageResults);
-                    imageResultsAdapter.notifyDataSetChanged();
+                    imageResultsAdapter.addAll(ImageResult.fromJson(imageArray));
 
                 } catch (JSONException e) {
 
                 }
-                Log.d("DEBUG", String.valueOf(imageResults.size()));
+
             }
 
             @Override
