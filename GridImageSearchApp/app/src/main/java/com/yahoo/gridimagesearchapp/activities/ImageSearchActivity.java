@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 
 
-public class ImageSearchActivity extends ActionBarActivity {
+public class ImageSearchActivity extends ActionBarActivity implements SettingsCallBack {
 
     private EditText etQuery;
     private StaggeredGridView gvResults;
@@ -95,13 +95,6 @@ public class ImageSearchActivity extends ActionBarActivity {
 
     }
 
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_image_search, menu);
-        return true;
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = this.getMenuInflater();
@@ -139,9 +132,16 @@ public class ImageSearchActivity extends ActionBarActivity {
 
 
         if (id == R.id.miRequest) {
-            Intent settingIntent = new Intent(this, SettingsActivity.class);
+          /*  Intent settingIntent = new Intent(this, SettingsActivity.class);
             settingIntent.putExtra("data", settings);
-            startActivityForResult(settingIntent,REQUEST_RESULT);
+            startActivityForResult(settingIntent,REQUEST_RESULT);*/
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            SettingsFragment settingsDialog = SettingsFragment.newInstance("Settings");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", settings);
+            settingsDialog.setArguments(bundle);
+            settingsDialog.show(fm, "activity_settings");
+
 
         }
 
@@ -218,4 +218,9 @@ public class ImageSearchActivity extends ActionBarActivity {
 
     }
 
+    public void onSettingsSaved(SettingsData s){
+
+        settings = s;
+        getImageData(0, true);
+    }
 }

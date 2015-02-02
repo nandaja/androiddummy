@@ -1,9 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context="com.yahoo.gridimagesearchapp.activities.SettingsActivity"
     android:id="@+id/settingslayout">
 
@@ -16,9 +13,11 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
         android:textStyle="bold"
-        android:textSize="30sp"
-        android:typeface="monospace" />
+        android:textSize="20sp"
+        android:typeface="monospace"
+        android:textColor="@color/background_floating_material_dark" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,10 +26,14 @@
         android:text="Image Size"
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
+        android:layout_marginLeft="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"
-        android:textStyle="bold" />
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:textSize="15sp"
+        android:textColor="@color/background_floating_material_dark" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -39,8 +42,11 @@
         android:layout_alignTop="@+id/textView2"
         android:layout_alignParentRight="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
+        android:typeface="monospace"
         android:layout_toEndOf="@+id/textView2"
-        android:paddingLeft="60dp" />
+        android:paddingLeft="45dp"
+        android:textSize="15sp"
+        android:popupBackground="@color/bright_foreground_material_dark"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,10 +55,14 @@
         android:text="Color"
         android:id="@+id/textView3"
         android:layout_below="@+id/textView2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp"
-        android:textStyle="bold" />
+        android:typeface="monospace"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/background_floating_material_dark" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -62,7 +72,11 @@
         android:layout_alignParentRight="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
         android:layout_toEndOf="@+id/textView3"
-        android:paddingLeft="100dp" />
+        android:paddingLeft="85dp"
+        android:textSize="15sp"
+        android:typeface="monospace"
+        android:popupBackground="@color/bright_foreground_material_dark"
+         />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,11 +84,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Types"
         android:id="@+id/textView4"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
+        android:typeface="monospace"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/background_floating_material_dark" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -83,8 +101,11 @@
         android:layout_alignTop="@+id/textView4"
         android:layout_alignParentRight="@+id/textView4"
         android:layout_toRightOf="@+id/textView4"
+        android:typeface="monospace"
         android:layout_toEndOf="@+id/textView4"
-        android:paddingLeft="100dp" />
+        android:paddingLeft="85dp"
+        android:textSize="15sp"
+        android:popupBackground="@color/bright_foreground_material_dark"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,20 +113,27 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Site Filter"
         android:id="@+id/textView5"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:textSize="15sp"
+        android:textColor="@color/background_floating_material_dark" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etSite"
         android:hint="yahoo.com"
+        android:paddingLeft="45dp"
+        android:typeface="monospace"
         android:layout_alignTop="@+id/textView5"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_toRightOf="@+id/textView"
+        android:textSize="15sp"
+        android:layout_toEndOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -115,7 +143,11 @@
         android:layout_below="@+id/etSite"
         android:layout_alignLeft="@+id/spImageSize"
         android:layout_alignStart="@+id/spImageSize"
-        android:layout_marginTop="53dp"
-        android:onClick="onSave" />
+        android:layout_marginTop="20dp"
+        android:onClick="onSave"
+        android:textSize="15sp"
+        android:typeface="monospace"
+        android:textColor="@color/background_floating_material_dark"
+        android:popupBackground="@color/bright_foreground_material_dark"/>
 
 </RelativeLayout>
