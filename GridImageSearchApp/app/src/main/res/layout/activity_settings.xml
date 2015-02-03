@@ -2,7 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context="com.yahoo.gridimagesearchapp.activities.SettingsActivity"
-    android:id="@+id/settingslayout">
+    android:id="@+id/settingslayout"
+    android:minWidth="100dp"
+    android:maxHeight="75dp"
+    android:maxWidth="200dp"
+    >
 
 
     <TextView
@@ -14,140 +18,97 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textSize="20sp"
         android:typeface="monospace"
-        android:textColor="@color/background_floating_material_dark" />
+        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Image Size"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_marginLeft="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:textSize="15sp"
-        android:textColor="@color/background_floating_material_dark" />
+        android:id="@+id/tableLayout"
+        android:layout_marginTop="50dp"
+        android:stretchColumns="1">
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spImageSize"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentRight="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:typeface="monospace"
-        android:layout_toEndOf="@+id/textView2"
-        android:paddingLeft="45dp"
-        android:textSize="15sp"
-        android:popupBackground="@color/bright_foreground_material_dark"/>
+        <TableRow>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Color"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:typeface="monospace"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:textColor="@color/background_floating_material_dark" />
+            <TextView
+                android:layout_width="120dp"
+                android:paddingLeft="10dp"
+                android:text="Image Size: " />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spColor"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignParentRight="@+id/textView3"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_toEndOf="@+id/textView3"
-        android:paddingLeft="85dp"
-        android:textSize="15sp"
-        android:typeface="monospace"
-        android:popupBackground="@color/bright_foreground_material_dark"
-         />
+            <Spinner
+                android:id="@+id/spImageSize"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/image_size_array"
+                android:gravity="right" />
+        </TableRow>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Types"
-        android:id="@+id/textView4"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:typeface="monospace"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:textColor="@color/background_floating_material_dark" />
+        <TableRow>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spTypes"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_alignParentRight="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4"
-        android:typeface="monospace"
-        android:layout_toEndOf="@+id/textView4"
-        android:paddingLeft="85dp"
-        android:textSize="15sp"
-        android:popupBackground="@color/bright_foreground_material_dark"/>
+            <TextView
+                android:layout_width="120dp"
+                android:paddingLeft="10dp"
+                android:text="Color Filter: " />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Site Filter"
-        android:id="@+id/textView5"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        android:textSize="15sp"
-        android:textColor="@color/background_floating_material_dark" />
+            <Spinner
+                android:id="@+id/spColor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/image_color_array"
+                android:gravity="right" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etSite"
-        android:hint="yahoo.com"
-        android:paddingLeft="45dp"
-        android:typeface="monospace"
-        android:layout_alignTop="@+id/textView5"
-        android:layout_toRightOf="@+id/textView"
-        android:textSize="15sp"
-        android:layout_toEndOf="@+id/textView" />
+        </TableRow>
 
+        <TableRow>
+
+            <TextView
+                android:layout_width="120dp"
+                android:paddingLeft="10dp"
+                android:text="Image Type: " />
+
+            <Spinner
+                android:id="@+id/spTypes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/image_type_array"
+                android:gravity="right" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="120dp"
+                android:paddingLeft="10dp"
+                android:text="Site Filter: " />
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/etSite"
+                android:hint="yahoo.com"
+                />
+
+        </TableRow>
+
+
+
+    </TableLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/btSubmit"
-        android:layout_below="@+id/etSite"
-        android:layout_alignLeft="@+id/spImageSize"
-        android:layout_alignStart="@+id/spImageSize"
+        android:layout_below="@+id/tableLayout"
         android:layout_marginTop="20dp"
         android:onClick="onSave"
         android:textSize="15sp"
         android:typeface="monospace"
-        android:textColor="@color/background_floating_material_dark"
-        android:popupBackground="@color/bright_foreground_material_dark"/>
+        android:textColor="@color/textbody"
+        android:layout_centerInParent="true"
+        />
 
 </RelativeLayout>

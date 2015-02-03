@@ -69,9 +69,9 @@ public class SettingsFragment extends DialogFragment {
         //),android.R.style.Theme_Translucent_NoTitleBar);
         final View view = getActivity().getLayoutInflater().inflate(R.layout.activity_settings, null);
 
-        final Drawable d = new ColorDrawable(Color.WHITE);
+        final Drawable d = new ColorDrawable(Color.BLACK);
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-        d.setAlpha(130);
+        d.setAlpha(200);
 
         dialog.getWindow().setBackgroundDrawable(d);
         dialog.getWindow().setContentView(view);
@@ -82,6 +82,7 @@ public class SettingsFragment extends DialogFragment {
         params.gravity = Gravity.CENTER;
 
         dialog.setCanceledOnTouchOutside(true);
+
 
         return dialog;
     }
@@ -105,17 +106,8 @@ public class SettingsFragment extends DialogFragment {
         types = new ArrayList(Arrays.asList((String[]) getResources().getStringArray(R.array.image_type_array)));
 
         imgSize = (Spinner) view.findViewById(R.id.spImageSize);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, sizes);
-        imgSize.setAdapter(adapter);
-
         color = (Spinner) view.findViewById(R.id.spColor);
-        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, colors);
-        color.setAdapter(colorAdapter);
-
         type = (Spinner) view.findViewById(R.id.spTypes);
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, types);
-        type.setAdapter(typeAdapter);
-
         site = (EditText)view.findViewById(R.id.etSite);
 
         Button button = (Button) view.findViewById(R.id.btSubmit);
