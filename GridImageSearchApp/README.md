@@ -24,7 +24,7 @@ User can scroll down “infinitely” to continue loading more image results (up
 
 
 
-** Optional user stories completed **
+**Optional user stories completed**
 
 Advanced: Robust error handling, check if internet is available, handle error cases, network failures
 
