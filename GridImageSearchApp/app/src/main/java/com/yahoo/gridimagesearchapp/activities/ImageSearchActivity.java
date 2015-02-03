@@ -1,6 +1,9 @@
 package com.yahoo.gridimagesearchapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import android.support.v4.view.MenuItemCompat;
@@ -32,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 
 
 public class ImageSearchActivity extends ActionBarActivity implements SettingsCallBack {
@@ -48,6 +52,9 @@ public class ImageSearchActivity extends ActionBarActivity implements SettingsCa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!isNetworkAvailable()){
+            Toast.makeText(this, "Check internet connectivity", Toast.LENGTH_LONG).show();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_search);
         setUpViews();
@@ -222,5 +229,12 @@ public class ImageSearchActivity extends ActionBarActivity implements SettingsCa
 
         settings = s;
         getImageData(0, true);
+    }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }
