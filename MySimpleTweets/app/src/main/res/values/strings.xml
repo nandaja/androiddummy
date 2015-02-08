@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Simple Tweets</string>
+    <string name="login_label">Connect with Twitter</string>
+    <string name="title_activity_timeline"></string>
+    <string name="action_settings">Settings</string>
+    <color name="actionbar">#4099FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+</resources>
