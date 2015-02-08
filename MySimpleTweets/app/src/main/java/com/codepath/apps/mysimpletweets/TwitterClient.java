@@ -48,10 +48,10 @@ public class TwitterClient extends OAuthBaseClient {
 
         //First call
         if(sinceid==0) {
-            params.put("count", 75);
+            params.put("count", 50);
         }
         else{
-            params.put("count", 75);
+            params.put("count", 50);
             Log.d("DEBUG", "since id : " + sinceid + " maxId : " + maxid);
             params.put("max_id", maxid - 1);
             params.put("since_id", sinceid);

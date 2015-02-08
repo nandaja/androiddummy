@@ -3,6 +3,8 @@ package com.codepath.apps.mysimpletweets.activities;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -38,6 +40,8 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
     private ArrayList<Tweet> tweets;
     private ListView lvTweets;
     private User user;
+    private SwipeRefreshLayout swipeContainer;
+
 
 
     @Override
@@ -71,7 +75,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
                 // or customLoadMoreDataFromApi(totalItemsCount);
                 System.out.println("NANDAJA :  offset is " + totalItemsCount + "page is " + page);
 
-                if (totalItemsCount >= 75) {
+                if (totalItemsCount >= 500) {
                     System.out.println("NANDAJA : Returning");
                     return;
                 }
@@ -81,6 +85,24 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
         populateTimeLine(0, true);
         populateUserInfo();
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                populateTimeLine(0, true);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
 
     }
 
@@ -134,6 +156,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
                 //De-serialize JSON to create model and load model data into the list view
                 tweets.addAll(Tweet.fromJSONArray(response));
                 tweetAdapter.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
 
             }
 
