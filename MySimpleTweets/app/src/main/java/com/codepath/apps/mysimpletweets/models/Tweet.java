@@ -6,10 +6,15 @@ package com.codepath.apps.mysimpletweets.models;
 
 import android.text.format.DateUtils;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -110,15 +115,41 @@ import java.util.Date;
  ]
 
  */
-public class Tweet {
+@Table(name = "Tweet")
+public class Tweet  extends Model implements Serializable {
 
     final String TWITTER="EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+
+    @Column(name = "body")
     private String body;
+
+    @Column(name = "tweetId", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     private long tweetId;
+
+    @Column(name = "User", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     private User user;
+
+    @Column(name = "createdTime")
     private String createdTime;
+
+    @Column(name = "reTweetCount")
     private int reTweetCount;//retweet_count
+
+    @Column(name = "favoriteCount")
     private int favoriteCount;//favorite_count
+
+    @Column(name = "embeddedImageURL")
+    private String embeddedImageURL;
+
+
+    public String getEmbeddedImageURL() {
+        return embeddedImageURL;
+    }
+
+    public void setEmbeddedImageURL(String embeddedImageURL) {
+        this.embeddedImageURL = embeddedImageURL;
+    }
+
 
 
     public int getFavoriteCount() {
@@ -136,8 +167,6 @@ public class Tweet {
     public void setReTweetCount(int reTweetCount) {
         this.reTweetCount = reTweetCount;
     }
-
-
 
     public User getUser() {
         return user;
@@ -202,6 +231,24 @@ public class Tweet {
             tweet.setFavoriteCount(jsonResponse.getInt("favorite_count"));
             tweet.setCreatedTime(jsonResponse.getString("created_at"));
 
+            try {
+                //Read media if any and extract image URL
+                JSONObject entity = jsonResponse.getJSONObject("entities");
+                if (entity != null) {
+                    JSONArray media = entity.getJSONArray("media");
+                    if (media != null) {
+                        JSONObject image = media.getJSONObject(0);
+                        if (image != null) {
+                            tweet.setEmbeddedImageURL(image.getString("media_url"));
+                        }
+
+                    }
+                }
+            }
+            catch(JSONException e){
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -216,6 +263,7 @@ public class Tweet {
 
             try {
                 Tweet tweet = buildTweet(array.getJSONObject(i));
+                tweet.save();
                 if(tweet!=null) {
                     tweetList.add(tweet);
                 }
@@ -231,13 +279,17 @@ public class Tweet {
 
     public static long getMaxId(ArrayList<Tweet> tweetArray){
 
-        long maxId = tweetArray.get(0).getTweetId();
+        if(tweetArray!=null && tweetArray.size()!=0) {
+            long maxId = tweetArray.get(0).getTweetId();
 
-        for(Tweet t:tweetArray){
-            if(t.getTweetId()<=maxId)
-            maxId = t.getTweetId();
+            for (Tweet t : tweetArray) {
+                if (t.getTweetId() <= maxId)
+                    maxId = t.getTweetId();
+            }
+            return maxId;
         }
-        return maxId;
+        else
+        return 0l;
     }
 
     public static long getSinceId(ArrayList<Tweet> tweetArray){

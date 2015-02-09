@@ -2,23 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentLeft="true"
-    android:orientation="vertical"
     android:background="@color/white"
-    >
- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/titlebar"
         android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/titlebar"
-        android:background="@color/actionbar"
-        android:alpha="4.0">
+        android:alpha="4.0"
+        android:background="@color/actionbar">
 
         <ImageView
             android:id="@+id/imageView1"
@@ -29,35 +29,32 @@
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_twitter" />
 
-     <TextView
-         android:id="@+id/tvCharCount"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_toLeftOf="@+id/tvTweetButton"
-         android:text="140"
-         android:paddingTop="3dp"
-         android:layout_centerVertical="true"
-         android:textStyle="bold"
-         />
+        <TextView
+            android:id="@+id/tvCharCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tvTweetButton"
+            android:paddingTop="3dp"
+            android:text="140"
+            android:textStyle="bold" />
 
-     <Button
-         android:id="@+id/tvTweetButton"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentRight="true"
-         android:paddingTop="3dp"
-         android:paddingLeft="5dp"
-         android:layout_centerVertical="true"
-         android:background="?android:selectableItemBackground"
-         android:gravity="center"
-         android:textAlignment="gravity"
-         android:textStyle="bold"
-         android:text="TWEET" />
-
+        <Button
+            android:id="@+id/tvTweetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:selectableItemBackground"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:text="TWEET"
+            android:textAlignment="gravity"
+            android:textStyle="bold" />
 
 
-
- </RelativeLayout>
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -65,10 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/titlebar"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
-        android:background="@color/white"
 
         >
 
@@ -87,42 +84,41 @@
             android:id="@+id/tvUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ivUserPic"
+            android:layout_toRightOf="@+id/ivUserPic"
             android:background="@color/white"
-          android:layout_toEndOf="@+id/ivUserPic"
-          android:layout_toRightOf="@+id/ivUserPic"
-          android:paddingLeft="10dp"
-          android:text="New Text"
+            android:paddingLeft="10dp"
+            android:text="New Text"
             android:textColor="@color/black"
-          android:textStyle="bold" />
+            android:textStyle="bold" />
 
-      <TextView
-          android:id="@+id/tvScName"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_below="@+id/tvUser"
-          android:layout_toRightOf="@+id/ivUserPic"
-          android:autoLink="all"
-          android:paddingLeft="10dp"
-          android:paddingTop="1dp"
-          android:text="New Text"
-          android:textStyle="bold"
-          android:textColor="@color/black"
-          />
-      />
+        <TextView
+            android:id="@+id/tvScName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvUser"
+            android:layout_toRightOf="@+id/ivUserPic"
+            android:autoLink="all"
+            android:paddingLeft="10dp"
+            android:paddingTop="1dp"
+            android:text="New Text"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+        />
 
-  </RelativeLayout>
+    </RelativeLayout>
 
-  <EditText
-      android:id="@+id/etTweet"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/info"
-      android:background="@color/white"
-      android:hint="Tweet here !"
-      android:minLines="3"
-      android:scrollHorizontally="false"
-      android:scrollbars="vertical"
-      android:paddingLeft="10dp"
-      android:singleLine="false"
-      android:textColor="@color/black"/>
+    <EditText
+        android:id="@+id/etTweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info"
+        android:background="@color/white"
+        android:hint="What's happening ?"
+        android:minLines="3"
+        android:paddingLeft="10dp"
+        android:scrollHorizontally="false"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:textColor="@color/black" />
 </RelativeLayout>

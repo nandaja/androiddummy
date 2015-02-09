@@ -40,7 +40,8 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
     // i.e Display an error dialog or toast
     @Override
     public void onLoginFailure(Exception e) {
-        e.printStackTrace();
+        Intent i = new Intent(this, TimelineActivity.class);
+        startActivity(i);
     }
 
     // Click handler method for the button used to start OAuth flow

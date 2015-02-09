@@ -6,23 +6,19 @@ package com.codepath.apps.mysimpletweets.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
@@ -34,21 +30,20 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 
 public class TweetFragment extends DialogFragment {
 
     User user;
     private TwitterClient client;
+    boolean isReply;
 
     TweetCallBack callBack;
     Button tweetButton;
     EditText etTweet;
     TextView tvCharCount;
+    Tweet tweet;
 
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -60,7 +55,7 @@ public class TweetFragment extends DialogFragment {
 
         public void afterTextChanged(Editable s) {
             // TODO Auto-generated method stub
-            tvCharCount.setText(String.valueOf(140-s.length()));
+            tvCharCount.setText(String.valueOf(140 - s.length()));
         }
     };
 
@@ -90,20 +85,20 @@ public class TweetFragment extends DialogFragment {
 //       final Drawable d = new ColorDrawable(Color.WHITE);
 //       d.setAlpha(130);
 
-      //  dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //  dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
-       // dialog.getWindow().setBackgroundDrawable(d);
+        // dialog.getWindow().setBackgroundDrawable(d);
         dialog.getWindow().setContentView(view);
-      //  getActivity().getActionBar().hide();
+        //  getActivity().getActionBar().hide();
 
-      //  dialog.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.custom_fragment_title);
+        //  dialog.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.custom_fragment_title);
         final WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.TOP;
-        params.verticalWeight=5.0f;
+        params.verticalWeight = 5.0f;
         dialog.setCanceledOnTouchOutside(true);
-        client= TwitterApplication.getRestClient();
+        client = TwitterApplication.getRestClient();
 
 
         return dialog;
@@ -129,18 +124,30 @@ public class TweetFragment extends DialogFragment {
         etTweet = (EditText) view.findViewById(R.id.etTweet);
         etTweet.addTextChangedListener(mTextEditorWatcher);
         user = (User) this.getArguments().get("user");
+        isReply = this.getArguments().getBoolean("isReply");
         tvUser.setText(user.getName());
         tvScName.setText("@" + user.getScreenName());
         ImageView ivUserPic = (ImageView) view.findViewById(R.id.ivUserPic);
         ivUserPic.setImageResource(android.R.color.transparent);
-        Picasso.with(getActivity()).load(user.getProfilePicURL()).resize(75,75).into(ivUserPic);
+        Picasso.with(getActivity()).load(user.getProfilePicURL()).resize(75, 75).into(ivUserPic);
+
+        if (isReply) {
+
+            tweet = (Tweet) this.getArguments().getSerializable("tweet");
+            etTweet.setText( tweet.getUser().getScreenName());
+        }
         return view;
     }
 
     public void onTweet(View view) {
 
 
-        client.postTweet(etTweet.getText().toString(), new JsonHttpResponseHandler() {
+        long replyTweetId = 0l;
+        if (isReply) {
+            replyTweetId = tweet.getTweetId();
+            Log.d("DEBUG", "Reply to " + tweet.getTweetId());
+        }
+        client.postTweet(etTweet.getText().toString(), replyTweetId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] header, JSONObject response) {
                 Tweet tweet = Tweet.buildTweet(response);

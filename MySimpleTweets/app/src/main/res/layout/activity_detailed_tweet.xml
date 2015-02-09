@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivImage"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+       />
 
     <ImageView
         android:id="@+id/ivUserProfilePic"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="10dp" />
+        android:layout_below="@+id/ivImage"
+        android:layout_margin="10dp"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/ivImage"
         android:layout_toEndOf="@+id/ivUserProfilePic"
+        android:layout_alignTop="@+id/ivUserProfilePic"
         android:layout_toRightOf="@+id/ivUserProfilePic"
         android:paddingLeft="10dp"
         android:text="New Text"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+         />
 
 
     <TextView
@@ -31,30 +44,49 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/tvScreenName"
+        android:layout_toRightOf="@+id/replyIcon"
+        android:layout_below="@+id/ivImage"
         android:gravity="right"
 
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp" />
+
+    <ImageButton
+        android:id="@+id/replyIcon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="true"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@+id/tvUserName"
+        android:layout_alignTop="@+id/ivUserProfilePic"
+        android:layout_below="@+id/ivImage"
+        android:paddingLeft="30dp"
+        android:background="@drawable/ic_reply"
+        android:layout_marginLeft="40dp"
         />
 
     <TextView
         android:id="@+id/tvTweetBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvUserName"
+        android:layout_below="@+id/tvScreenName"
         android:layout_toRightOf="@+id/ivUserProfilePic"
         android:autoLink="all"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:text="New Text"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/tvUserName"
-        android:layout_toRightOf="@+id/tvUserName"
-        android:paddingLeft="5dp"
+        android:layout_below="@+id/tvUserName"
+        android:layout_toRightOf="@+id/ivUserProfilePic"
+        android:paddingTop="2dp"
+        android:paddingLeft="10dp"
         android:text="New Text" />
 
     <LinearLayout
@@ -67,12 +99,15 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp">
 
+
+
         <ImageView
             android:id="@+id/reTweetIcon"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:adjustViewBounds="true"
             android:baselineAlignBottom="true"
+            android:gravity="center_vertical"
             android:scaleType="fitXY"
             android:src="@drawable/ic_retweet" />
 

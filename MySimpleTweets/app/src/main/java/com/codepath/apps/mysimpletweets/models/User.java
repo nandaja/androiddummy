@@ -4,6 +4,10 @@ package com.codepath.apps.mysimpletweets.models;
  * Created by nandaja on 2/7/15.
  */
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,12 +72,20 @@ import java.io.Serializable;
  "screen_name": "oauth_dancer"
  }
  */
-public class User implements Serializable{
+@Table(name = "User")
+public class User extends Model implements Serializable{
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "screenName")
     private String screenName;
+
+    @Column(name = "profilePicURL")
     private String profilePicURL;
-    private long id;
+
+    @Column(name = "userId", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    private long userId;
 
 
     public String getName() {
@@ -100,23 +112,24 @@ public class User implements Serializable{
         this.profilePicURL = profilePicURL;
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long id) {
+        this.userId = id;
     }
 
     public static User buildUser(JSONObject userObj){
 
         User user = new User();
         try {
-            user.setId(userObj.getLong("id"));
+            user.setUserId(userObj.getLong("id"));
             user.setName(userObj.getString("name"));
             user.setName(userObj.getString("screen_name"));
             user.setProfilePicURL(userObj.getString("profile_image_url"));
             user.setScreenName("@" + userObj.getString("screen_name"));
+            user.save();
         } catch (JSONException e) {
             e.printStackTrace();
         }
