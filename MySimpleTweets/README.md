@@ -49,4 +49,6 @@ Bonus: User can see embedded image media within the tweet detail view
 
 Bonus: Compose activity is replaced with a modal overlay
 
+Additionally, indicated retweet information on timeline
+
 ![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/MySimpleTweets/twitterapp1.gif)
