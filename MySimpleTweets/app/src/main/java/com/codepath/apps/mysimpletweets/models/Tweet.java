@@ -141,6 +141,16 @@ public class Tweet  extends Model implements Serializable {
     @Column(name = "embeddedImageURL")
     private String embeddedImageURL;
 
+    private String retweeted;
+
+
+    public String getRetweeted() {
+        return retweeted;
+    }
+
+    public void setRetweeted(String retweeted) {
+        this.retweeted = retweeted;
+    }
 
     public String getEmbeddedImageURL() {
         return embeddedImageURL;
@@ -223,13 +233,30 @@ public class Tweet  extends Model implements Serializable {
 
         Tweet tweet = new Tweet();
         try {
+            if(jsonResponse.has("retweeted_status") == false){
             tweet.setBody(jsonResponse.getString("text"));
             tweet.setCreatedTime(jsonResponse.getString("created_at"));
             tweet.setTweetId(jsonResponse.getLong("id"));
             tweet.setUser(User.buildUser(jsonResponse.getJSONObject("user")));
             tweet.setReTweetCount(jsonResponse.getInt("retweet_count"));
             tweet.setFavoriteCount(jsonResponse.getInt("favorite_count"));
-            tweet.setCreatedTime(jsonResponse.getString("created_at"));
+
+        }
+            else{
+
+                //Get retweeted status and populate the tweet
+
+                User retweetingUser = User.buildUser(jsonResponse.getJSONObject("user"));
+                JSONObject retweetedStatus = jsonResponse.getJSONObject("retweeted_status");
+                tweet.setBody(retweetedStatus.getString("text"));
+                tweet.setCreatedTime(jsonResponse.getString("created_at"));
+                tweet.setTweetId(retweetedStatus.getLong("id"));
+                tweet.setUser(User.buildUser(retweetedStatus.getJSONObject("user")));
+                tweet.setReTweetCount(retweetedStatus.getInt("retweet_count"));
+                tweet.setFavoriteCount(retweetedStatus.getInt("favorite_count"));
+                tweet.retweeted = retweetingUser.getName() + " retweeted";
+
+            }
 
             try {
                 //Read media if any and extract image URL

@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants">
 
+
+
     <ImageView
         android:id="@+id/ivUserProfilePic"
         android:layout_width="50dp"
@@ -13,11 +15,32 @@
         android:layout_alignParentTop="true"
         android:layout_margin="10dp" />
 
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/reTweeted"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ivUserProfilePic"
+        android:src="@drawable/ic_retweet"/>
+
+    <TextView
+        android:id="@+id/tvRetweeted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivUserProfilePic"
+        android:layout_toRightOf="@+id/reTweeted"
+        android:paddingLeft="10dp"
+        android:textSize="10sp"
+        android:text="New Text"
+        />
+
+
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvRetweeted"
         android:layout_toEndOf="@+id/ivUserProfilePic"
         android:layout_toRightOf="@+id/ivUserProfilePic"
         android:paddingLeft="10dp"
@@ -56,7 +79,7 @@
         android:layout_toEndOf="@+id/tvUserName"
         android:layout_toRightOf="@+id/tvUserName"
         android:layout_alignTop="@+id/tvUserName"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvRetweeted"
         android:paddingLeft="5dp"
         android:textSize="10sp"
         android:text="New Text" />

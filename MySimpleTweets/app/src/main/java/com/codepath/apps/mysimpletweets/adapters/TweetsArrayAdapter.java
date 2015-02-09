@@ -42,6 +42,8 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView tvRetweetCount = (TextView) convertView.findViewById(R.id.tvRetweetCount);
         TextView tvFavCount = (TextView) convertView.findViewById(R.id.tvFavCount);
         TextView tvTimeStamp = (TextView) convertView.findViewById(R.id.tvTimeStamp);
+        TextView tvRetweeted = (TextView) convertView.findViewById(R.id.tvRetweeted);
+        ImageView ivRetweet = (ImageView) convertView.findViewById(R.id.reTweeted);
 
         tvUserName.setText(tweet.getUser().getName());
         tvTweetBody.setText(tweet.getBody());
@@ -53,6 +55,17 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         Picasso.with(getContext()).load(tweet.getUser().getProfilePicURL()).resize(50,50).into(ivUserProfilePic);
 
 
+        if(tweet.getRetweeted()==null){
+            tvRetweeted.setVisibility(View.GONE);
+            ivRetweet.setVisibility(View.GONE);
+        }
+
+        else{
+            tvRetweeted.setVisibility(View.VISIBLE);
+            ivRetweet.setVisibility(View.VISIBLE);
+            tvRetweeted.setText(tweet.getRetweeted());
+
+        }
         ImageButton replyButton = (ImageButton) convertView.findViewById(R.id.replyIcon);
         replyButton.setOnClickListener(new View.OnClickListener() {
             @Override
