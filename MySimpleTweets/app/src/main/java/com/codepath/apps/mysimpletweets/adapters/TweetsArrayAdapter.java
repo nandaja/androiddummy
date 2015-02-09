@@ -1,14 +1,18 @@
 package com.codepath.apps.mysimpletweets.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.activities.TimelineActivity;
+import com.codepath.apps.mysimpletweets.activities.TweetFragment;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +31,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Tweet tweet = getItem(position);
+        final Tweet tweet = getItem(position);
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tweet, parent, false);
         }
@@ -47,6 +51,24 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         tvTimeStamp.setText(tweet.getCreatedTime());
         ivUserProfilePic.setImageResource(android.R.color.transparent);
         Picasso.with(getContext()).load(tweet.getUser().getProfilePicURL()).resize(50,50).into(ivUserProfilePic);
+
+
+        ImageButton replyButton = (ImageButton) convertView.findViewById(R.id.replyIcon);
+        replyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.support.v4.app.FragmentManager fm = ((TimelineActivity) getContext()).fetchFragmentManager();
+                TweetFragment tweetDialog = TweetFragment.newInstance("Tweet");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", ((TimelineActivity) getContext()).getLoggedInUser());
+                bundle.putBoolean("isReply", true);
+                bundle.putSerializable("tweet", tweet);
+                tweetDialog.setArguments(bundle);
+                tweetDialog.show(fm, "activity_tweet");
+
+            }
+        });
+
         return convertView;
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.ActionBar;
@@ -208,6 +209,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
     public void onTweetSaved(Tweet tweet) {
 
         tweetAdapter.insert(tweet, 0);
+
     }
 
     //Send an API request and fill the user information
@@ -278,4 +280,15 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
             tweetAdapter.insert(t, 0);
         }
     }
+
+
+    public FragmentManager fetchFragmentManager() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        return fragmentManager;
+    }
+
+    public User getLoggedInUser(){
+        return user;
+    }
+
 }

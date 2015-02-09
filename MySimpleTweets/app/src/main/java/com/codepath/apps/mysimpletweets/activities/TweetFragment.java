@@ -158,6 +158,7 @@ public class TweetFragment extends DialogFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("DEBUG", "Failure tweeting " + errorResponse.toString());
 
             }
         });
