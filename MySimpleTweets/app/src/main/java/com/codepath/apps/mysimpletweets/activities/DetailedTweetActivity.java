@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +21,11 @@ import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.codepath.apps.mysimpletweets.models.User;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 public class DetailedTweetActivity extends ActionBarActivity implements TweetCallBack {
 
@@ -99,6 +104,15 @@ public class DetailedTweetActivity extends ActionBarActivity implements TweetCal
             }
         });
 
+        ImageButton reTweetButton = (ImageButton) findViewById(R.id.reTweetIcon);
+        reTweetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                reTweet(tweet);
+
+            }
+        });
     }
 
 
@@ -145,5 +159,25 @@ public class DetailedTweetActivity extends ActionBarActivity implements TweetCal
         finish();
     }
 
+    private void reTweet(Tweet t) {
+        client.reTweet(t.getTweetId(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] header, JSONObject response) {
+                Tweet tweet = Tweet.buildTweet(response);
+                Intent intent = new Intent();
+                intent.putExtra("tweet", tweet);
+                setResult(100, intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("DEBUG", "Failure re-tweeting " + errorResponse.toString());
+                finish();
+
+            }
+        });
+
+    }
 
 }

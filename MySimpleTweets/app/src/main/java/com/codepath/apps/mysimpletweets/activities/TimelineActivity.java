@@ -58,7 +58,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.custom_action_bar, null);
-        ((TextView)mCustomView.findViewById(R.id.title_text)).setText("Home");
+        ((TextView) mCustomView.findViewById(R.id.title_text)).setText("Home");
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
 
@@ -277,11 +277,13 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == 100 && requestCode==100) {
-           Tweet t = (Tweet) data.getSerializableExtra("tweet");
-            tweetAdapter.insert(t, 0);
+        if (resultCode == 100 && requestCode == 100) {
+            if (data.getSerializableExtra("tweet") != null) {
+                Tweet t = (Tweet) data.getSerializableExtra("tweet");
+                tweetAdapter.insert(t, 0);
+            }
             lvTweets.setSelectionAfterHeaderView();
         }
     }
@@ -292,8 +294,26 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
         return fragmentManager;
     }
 
-    public User getLoggedInUser(){
+    public User getLoggedInUser() {
         return user;
     }
 
+    public void reTweet(Tweet t) {
+        client.reTweet(t.getTweetId(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] header, JSONObject response) {
+                Tweet t1 = Tweet.buildTweet(response);
+
+                tweetAdapter.insert(t1, 0);
+
+                lvTweets.setSelectionAfterHeaderView();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+            }
+        });
+
+    }
 }

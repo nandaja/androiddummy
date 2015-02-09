@@ -10,6 +10,8 @@ import com.loopj.android.http.RequestParams;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
+import java.text.MessageFormat;
+
 /*
  * 
  * This is the object responsible for communicating with a REST API. 
@@ -87,5 +89,22 @@ public class TwitterClient extends OAuthBaseClient {
         }
         client.post(apiURL, params, handler);
         Log.d("DEBUG", "TEST");
+    }
+
+    /***
+     * https://api.twitter.com/1.1/statuses/retweet/:id.json
+     */
+
+    public void reTweet(long id, AsyncHttpResponseHandler handler) {
+
+        String url = MessageFormat.format("statuses/retweet/{0}.json", id);
+        url = url.replace(",", "");
+
+        String apiURL = getApiUrl(url);
+        Log.d("DEBUG", "retweet url " + url);
+
+        RequestParams params = new RequestParams();
+        client.post(apiURL, params, handler);
+        Log.d("DEBUG", "Retweeted " + id);
     }
 }

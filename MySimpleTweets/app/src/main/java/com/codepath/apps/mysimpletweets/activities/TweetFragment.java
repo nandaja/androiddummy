@@ -81,13 +81,7 @@ public class TweetFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Holo_Dialog_NoActionBar);
         final View view = getActivity().getLayoutInflater().inflate(R.layout.activity_tweet_fragment, null);
-//
-//       final Drawable d = new ColorDrawable(Color.WHITE);
-//       d.setAlpha(130);
 
-        //  dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-
-        // dialog.getWindow().setBackgroundDrawable(d);
         dialog.getWindow().setContentView(view);
         //  getActivity().getActionBar().hide();
 
@@ -134,7 +128,7 @@ public class TweetFragment extends DialogFragment {
         if (isReply) {
 
             tweet = (Tweet) this.getArguments().getSerializable("tweet");
-            etTweet.setText( tweet.getUser().getScreenName());
+            etTweet.setText(tweet.getUser().getScreenName());
         }
         return view;
     }

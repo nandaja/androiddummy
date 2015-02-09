@@ -1,7 +1,9 @@
 package com.codepath.apps.mysimpletweets.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,11 @@ import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.activities.TimelineActivity;
 import com.codepath.apps.mysimpletweets.activities.TweetFragment;
 import com.codepath.apps.mysimpletweets.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -78,6 +84,17 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
                 bundle.putSerializable("tweet", tweet);
                 tweetDialog.setArguments(bundle);
                 tweetDialog.show(fm, "activity_tweet");
+
+            }
+        });
+
+
+        ImageButton reTweetButton = (ImageButton) convertView.findViewById(R.id.reTweetIcon);
+        reTweetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((TimelineActivity)getContext()).reTweet(tweet);
+
 
             }
         });
