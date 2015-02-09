@@ -32,6 +32,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/tvScreenName"
+        android:textSize="10sp"
         android:gravity="right"
 
         />
@@ -54,7 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/tvUserName"
         android:layout_toRightOf="@+id/tvUserName"
+        android:layout_alignTop="@+id/tvUserName"
+        android:layout_alignParentTop="true"
         android:paddingLeft="5dp"
+        android:textSize="10sp"
         android:text="New Text" />
 
     <LinearLayout
