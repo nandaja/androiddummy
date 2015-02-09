@@ -6,7 +6,7 @@ Total time spent : 13 hrs
 
 All required and optional user stories have been completed. 
 
-** User Stories completed ( required & optional ) **
+**User Stories completed ( required & optional )**
 
 User can sign in to Twitter using OAuth login
 
