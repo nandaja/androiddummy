@@ -21,7 +21,6 @@
         android:layout_centerInParent="true"
         android:layout_toRightOf="@+id/imageView1"
         android:paddingLeft="10dp"
-        android:text="Home"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
         android:textStyle="bold" />

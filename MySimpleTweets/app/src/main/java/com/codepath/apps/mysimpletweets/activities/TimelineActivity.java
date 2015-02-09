@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.codepath.apps.mysimpletweets.R;
@@ -57,8 +58,10 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
         View mCustomView = mInflater.inflate(R.layout.custom_action_bar, null);
+        ((TextView)mCustomView.findViewById(R.id.title_text)).setText("Home");
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
+
 
         setContentView(R.layout.activity_timeline);
         client = TwitterApplication.getRestClient();
@@ -209,6 +212,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
     public void onTweetSaved(Tweet tweet) {
 
         tweetAdapter.insert(tweet, 0);
+        lvTweets.setSelectionAfterHeaderView();
 
     }
 
@@ -278,6 +282,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
         if(resultCode == 100 && requestCode==100) {
            Tweet t = (Tweet) data.getSerializableExtra("tweet");
             tweetAdapter.insert(t, 0);
+            lvTweets.setSelectionAfterHeaderView();
         }
     }
 
