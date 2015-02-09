@@ -31,7 +31,7 @@ User can compose a new tweet
   Optional: User can see a counter with total number of characters left for tweet
   
 
-Optional user stories completed are as follows : 
+**Optional user stories completed**
 
 Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
 
