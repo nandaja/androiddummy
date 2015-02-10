@@ -35,7 +35,7 @@ User can compose a new tweet
 
 Advanced: User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
 
-Advanced: User can open the twitter app offline and see last loaded tweets
+Advanced: User can open the twitter app offline and see last loaded tweets ( please note that this is not in the attached GIF screenshot)
 
 Tweets are persisted into sqlite and can be displayed from the local DB
 
