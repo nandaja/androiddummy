@@ -2,6 +2,7 @@
 This is a simple Twitter client app that supports viewing a Twitter timeline and composing a new tweet. It also indicates
 retweeted info in the timeline and lets the user reply to tweets on his timeline. 
 
+
 Total time spent : 13 hrs
 
 All required and optional user stories have been completed. 
