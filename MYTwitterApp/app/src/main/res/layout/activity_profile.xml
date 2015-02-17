@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.apps.mysimpletweets.activities.ProfileActivity">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/rlUserHeader">
+
+            <ImageView
+                android:id="@+id/ivUserPic"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tvUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivUserPic"
+                android:layout_centerInParent="true"
+
+                android:paddingTop="10dp"
+
+                android:text="New Text"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvScName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUser"
+                android:layout_centerInParent="true"
+                android:autoLink="all"
+
+                android:paddingTop="1dp"
+                android:text="New Text"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+            />
+
+        </RelativeLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/userInfo"
+            android:layout_below="@+id/rlUserHeader"
+            android:divider="?android:dividerVertical"
+            android:showDividers="middle"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="150"
+                android:id="@+id/tweets"
+
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginLeft="40dp"
+                android:text="150"
+                android:id="@+id/following"
+
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="150"
+                android:id="@+id/followers"
+                android:layout_marginLeft="40dp"
+
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/userInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/flContainer">
+
+    </FrameLayout>
+
+</RelativeLayout>
