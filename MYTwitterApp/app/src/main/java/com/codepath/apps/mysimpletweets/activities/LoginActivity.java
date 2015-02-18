@@ -24,6 +24,7 @@ import org.json.JSONObject;
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
     TwitterClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
     @Override
     public void onLoginSuccess() {
 
-        client= TwitterApplication.getRestClient();
+        client = TwitterApplication.getRestClient();
         populateUserInfo();
         Intent i = new Intent(this, TimelineActivity.class);
         startActivity(i);

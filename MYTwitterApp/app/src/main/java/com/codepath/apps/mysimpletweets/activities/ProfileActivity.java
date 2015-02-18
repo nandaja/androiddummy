@@ -1,21 +1,32 @@
 package com.codepath.apps.mysimpletweets.activities;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
+import com.codepath.apps.mysimpletweets.adapters.SmartFragmentStatePagerAdapter;
+import com.codepath.apps.mysimpletweets.fragments.FollowersFragment;
+import com.codepath.apps.mysimpletweets.fragments.FollowingFragment;
 import com.codepath.apps.mysimpletweets.fragments.UserTimelineFragment;
 import com.codepath.apps.mysimpletweets.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -30,9 +41,25 @@ public class ProfileActivity extends ActionBarActivity {
     TwitterClient client;
     User user;
 
+
+    ViewPager viewPager;
+    UserProfilePagerAdapter userProfileAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4099FF")));
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
+        View mCustomView = mInflater.inflate(R.layout.custom_action_bar, null);
+        ((TextView) mCustomView.findViewById(R.id.title_text)).setText("Profile");
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
         setContentView(R.layout.activity_profile);
 
         client = TwitterApplication.getRestClient();
@@ -47,6 +74,14 @@ public class ProfileActivity extends ActionBarActivity {
 
                 populateUserInfo(user);
 
+                userProfileAdapter = new UserProfilePagerAdapter(getSupportFragmentManager());
+
+                viewPager = (ViewPager) findViewById(R.id.viewpager);
+                viewPager.setAdapter(userProfileAdapter);
+
+                PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+                tabs.setViewPager(viewPager);
+
             }
 
             @Override
@@ -55,22 +90,6 @@ public class ProfileActivity extends ActionBarActivity {
                 System.out.println();
             }
         }, screenName);
-
-        // Create user timeline fragment
-
-        if(savedInstanceState ==null) {
-            UserTimelineFragment userTimelineFragment = new UserTimelineFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("screenName", screenName);
-            userTimelineFragment.setArguments(bundle);
-
-            //Display user fragment dynamically
-            FragmentManager fm = getSupportFragmentManager();
-            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.flContainer, userTimelineFragment);
-            ft.commit();
-        }
-
 
     }
 
@@ -97,28 +116,26 @@ public class ProfileActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void populateUserInfo(User user){
-        TextView tweets = (TextView) findViewById(R.id.tweets);
-        TextView followers = (TextView) findViewById(R.id.followers);
-        TextView following = (TextView) findViewById(R.id.following);
+    private void populateUserInfo(User user) {
 
         TextView tvUser = (TextView) findViewById(R.id.tvUser);
         TextView tvScName = (TextView) findViewById(R.id.tvScName);
+        TextView tvDesc = (TextView) findViewById(R.id.tvDescription);
 
-        tweets.setText(String.valueOf(user.getTweetsCount())+ " Tweets") ;
-        followers.setText(String.valueOf(user.getFollowerCount()) + " Followers");
-        following.setText(String.valueOf(user.getFollowingCount()) + " Following");
+
         tvUser.setText(user.getName());
         tvScName.setText(user.getScreenName());
+        tvDesc.setText(user.getDescription());
 
         ImageView ivUserPic = (ImageView) findViewById(R.id.ivUserPic);
         ivUserPic.setImageResource(android.R.color.transparent);
-        Picasso.with(this).load(user.getProfilePicURL()).resize(75, 75).into(ivUserPic);
+        Picasso.with(this).load(user.getProfilePicURL()).resize(100, 100).into(ivUserPic);
 
 
         final View userHeader = findViewById(R.id.rlUserHeader);
 
         userHeader.setBackground(null);
+        userHeader.setAlpha(200);
         Picasso.with(this)
                 .load(user.getProfile_background_image_url())
                 .into(new Target() {
@@ -126,7 +143,7 @@ public class ProfileActivity extends ActionBarActivity {
                     @TargetApi(16)
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                         int sdk = android.os.Build.VERSION.SDK_INT;
-                        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                             userHeader.setBackgroundDrawable(new BitmapDrawable(bitmap));
                         } else {
                             userHeader.setBackground(new BitmapDrawable(getResources(), bitmap));
@@ -145,6 +162,70 @@ public class ProfileActivity extends ActionBarActivity {
                 });
 
 
+    }
+
+    public class UserProfilePagerAdapter extends SmartFragmentStatePagerAdapter {
+
+
+        final int PAGE_COUNT = 3;
+        private String[] tabTitles = {"Tweets", "Following", "Followers"};
+
+        public UserProfilePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                UserTimelineFragment userTimelineFragment = new UserTimelineFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("screenName", user.getScreenName());
+                userTimelineFragment.setArguments(bundle);
+                return userTimelineFragment;
+            } else if (position == 1) {
+                FollowingFragment followingFragment = new FollowingFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("screenName", user.getScreenName());
+                followingFragment.setArguments(bundle);
+                return followingFragment;
+            } else {
+                FollowersFragment followersFragment = new FollowersFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("screenName", user.getScreenName());
+                followersFragment.setArguments(bundle);
+                return followersFragment;
+            }
+
+
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return user.getTweetsCount() + " TWEETS";
+                case 1:
+                    return user.getFollowingCount() + " FOLLOWING";
+                case 2:
+                    return user.getFollowerCount() + " FOLLOWERS";
+            }
+            return tabTitles[position];
+        }
+    }
+
+
+    public void launchProfile(String screenName) {
+
+
+        Intent i = new Intent(this, ProfileActivity.class);
+        i.putExtra("screenName", screenName);
+        startActivity(i);
 
     }
 }

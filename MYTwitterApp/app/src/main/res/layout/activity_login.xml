@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/actionbar"
     android:alpha="0.5"
+    android:background="@color/actionbar"
     tools:context=".LoginActivity"
 
     >
@@ -14,19 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_twitter"
-        android:drawableLeft="@drawable/ic_twitter"
-        android:background="@color/actionbar"
-        android:layout_marginTop="75dp"
-        android:layout_marginLeft="75dp"
         android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="75dp"
+        android:background="@color/actionbar"
+        android:drawableLeft="@drawable/ic_twitter"
         android:onClick="loginToRest"
+        android:src="@drawable/ic_twitter"
         android:text="@string/login_label"
-        android:textAlignment="center"
-        />
-
+        android:textAlignment="center" />
 
 
 </RelativeLayout>

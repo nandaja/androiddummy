@@ -32,6 +32,8 @@ public class DetailedTweetActivity extends ActionBarActivity implements TweetCal
     private TwitterClient client;
     private User user;
     Tweet tweet;
+    ImageButton ivFavorite;
+    TextView tvFavCount;
 
     /**
      * "media":[{"type":"photo", "sizes":{"thumb":{"h":150, "resize":"crop", "w":150}, "large":{"h":238, "resize":"fit", "w":226}, "medium":{"h":238, "resize":"fit", "w":226}, "small":{"h":238, "resize":"fit", "w":226}}, "indices":[15,35], "url":"http:\/\/t.co\/rJC5Pxsu", "media_url":"http:\/\/p.twimg.com\/AZVLmp-CIAAbkyy.jpg", "display_url":"pic.twitter.com\/rJC5Pxsu", "id":114080493040967680, "id_str":"114080493040967680", "expanded_url": "http:\/\/twitter.com\/yunorno\/status\/114080493036773378\/photo\/1", "media_url_https":"https:\/\/p.twimg.com\/AZVLmp-CIAAbkyy.jpg"}]
@@ -63,7 +65,7 @@ public class DetailedTweetActivity extends ActionBarActivity implements TweetCal
         TextView tvTweetBody = (TextView) findViewById(R.id.tvTweetBody);
         TextView tvScreenName = (TextView) findViewById(R.id.tvScreenName);
         TextView tvRetweetCount = (TextView) findViewById(R.id.tvRetweetCount);
-        TextView tvFavCount = (TextView) findViewById(R.id.tvFavCount);
+        tvFavCount = (TextView) findViewById(R.id.tvFavCount);
         TextView tvTimeStamp = (TextView) findViewById(R.id.tvTimeStamp);
 
         ImageView ivImage = (ImageView) findViewById(R.id.ivImage);
@@ -111,6 +113,26 @@ public class DetailedTweetActivity extends ActionBarActivity implements TweetCal
 
                 reTweet(tweet);
 
+            }
+        });
+
+        ivFavorite = (ImageButton) findViewById(R.id.favoritesIcon);
+        if (tweet.isFavorited()) {
+            ivFavorite.setBackgroundResource(R.drawable.ic_star_filled);
+            tvFavCount.setTextColor(Color.parseColor("#ffa500"));
+
+        } else {
+            tvFavCount.setTextColor(Color.parseColor("#000000"));
+            ivFavorite.setBackgroundResource(R.drawable.ic_star_unfilled);
+        }
+        ivFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!tweet.isFavorited())
+                    favorite(tweet);
+                else
+                    unFavorite(tweet);
             }
         });
     }
@@ -179,5 +201,53 @@ public class DetailedTweetActivity extends ActionBarActivity implements TweetCal
         });
 
     }
+
+    public void favorite(Tweet t) {
+
+        System.out.println("NANDAJA ###########");
+        client.favorite(t.getTweetId(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] header, JSONObject response) {
+                tweet.setFavorited(true);
+                tweet.setFavoriteCount(tweet.getFavoriteCount() + 1);
+                tvFavCount.setText(String.valueOf(tweet.getFavoriteCount()));
+
+                ivFavorite.setBackgroundResource(R.drawable.ic_star_filled);
+                tvFavCount.setTextColor(Color.parseColor("#ffa500"));
+                Log.d("DEBUG", "Favorited tweet");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("DEBUG", "UNFavorited tweet");
+            }
+
+        });
+
+    }
+
+    public void unFavorite(Tweet t) {
+
+        client.unFavorite(t.getTweetId(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] header, JSONObject response) {
+                tweet.setFavorited(false);
+                tweet.setFavoriteCount(tweet.getFavoriteCount() - 1);
+                tvFavCount.setText(String.valueOf(tweet.getFavoriteCount()));
+
+                tvFavCount.setTextColor(Color.parseColor("#000000"));
+                ivFavorite.setBackgroundResource(R.drawable.ic_star_unfilled);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+            }
+
+        });
+
+    }
+
 
 }

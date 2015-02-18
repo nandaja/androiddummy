@@ -41,6 +41,9 @@ public class TweetsListFragment  extends Fragment {
     TwitterClient client;
 
 
+    public TweetsListFragment(){
+        client = TwitterApplication.getRestClient();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -148,6 +151,7 @@ public class TweetsListFragment  extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] header, JSONObject response) {
                 tweetAdapter.getItem(position).setFavorited(true);
+                tweetAdapter.getItem(position).setFavoriteCount(tweetAdapter.getItem(position).getFavoriteCount() + 1);
                 tweetAdapter.notifyDataSetChanged();
                 Log.d("DEBUG", "Favorited tweet");
             }
@@ -167,6 +171,7 @@ public class TweetsListFragment  extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] header, JSONObject response) {
                 tweetAdapter.getItem(position).setFavorited(false);
+                tweetAdapter.getItem(position).setFavoriteCount(tweetAdapter.getItem(position).getFavoriteCount() - 1);
                 tweetAdapter.notifyDataSetChanged();
             }
 

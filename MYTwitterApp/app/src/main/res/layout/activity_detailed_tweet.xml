@@ -6,16 +6,15 @@
 
 
     <ImageView
+        android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ivImage"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_launcher"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-       />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher" />
 
     <ImageView
         android:id="@+id/ivUserProfilePic"
@@ -29,14 +28,13 @@
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivUserProfilePic"
         android:layout_below="@+id/ivImage"
         android:layout_toEndOf="@+id/ivUserProfilePic"
-        android:layout_alignTop="@+id/ivUserProfilePic"
         android:layout_toRightOf="@+id/ivUserProfilePic"
         android:paddingLeft="10dp"
         android:text="New Text"
-        android:textStyle="bold"
-         />
+        android:textStyle="bold" />
 
 
     <TextView
@@ -44,41 +42,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/replyIcon"
         android:layout_below="@+id/ivImage"
-        android:gravity="right"
-
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
 
-   <!-- <ImageButton
-        android:id="@+id/replyIcon"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:adjustViewBounds="true"
-        android:baselineAlignBottom="true"
-        android:scaleType="fitXY"
-        android:layout_toRightOf="@+id/tvUserName"
-        android:layout_alignTop="@+id/ivUserProfilePic"
-        android:layout_below="@+id/ivImage"
-        android:paddingLeft="30dp"
-        android:background="@drawable/ic_reply"
-        android:layout_marginLeft="40dp"
-        /> -->
+        android:layout_toRightOf="@+id/replyIcon"
+        android:gravity="right" />
+
+    <!-- <ImageButton
+         android:id="@+id/replyIcon"
+         android:layout_width="15dp"
+         android:layout_height="15dp"
+         android:adjustViewBounds="true"
+         android:baselineAlignBottom="true"
+         android:scaleType="fitXY"
+         android:layout_toRightOf="@+id/tvUserName"
+         android:layout_alignTop="@+id/ivUserProfilePic"
+         android:layout_below="@+id/ivImage"
+         android:paddingLeft="30dp"
+         android:background="@drawable/ic_reply"
+         android:layout_marginLeft="40dp"
+         /> -->
 
     <TextView
         android:id="@+id/tvTweetBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvScreenName"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/ivUserProfilePic"
         android:autoLink="all"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:text="New Text"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvScreenName"
@@ -86,60 +84,63 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUserName"
         android:layout_toRightOf="@+id/ivUserProfilePic"
-        android:paddingTop="2dp"
         android:paddingLeft="10dp"
+        android:paddingTop="2dp"
         android:text="New Text" />
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/llTweetDetails"
         android:layout_width="fill_parent"
         android:layout_height="20dp"
 
         android:layout_below="@+id/tvTweetBody"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/ivUserProfilePic"
-        android:id="@+id/llTweetDetails"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="15dp"
-            android:layout_height="15dp"
             android:id="@+id/replyIcon"
-            android:background="@drawable/ic_reply"/>
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/ic_reply" />
 
 
         <ImageButton
-            android:layout_width="15dp"
-            android:layout_height="15dp"
             android:id="@+id/reTweetIcon"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/ic_retweet"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="150"
-            android:id="@+id/tvRetweetCount"
-
-            android:layout_gravity="top"
-            android:textSize="10sp"/>
-
-        <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:id="@+id/favoritesIcon"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/ic_favorites"/>
+            android:background="@drawable/ic_retweet" />
 
         <TextView
+            android:id="@+id/tvRetweetCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="100"
-            android:id="@+id/tvFavCount"
             android:layout_gravity="top"
-            android:textSize="10sp"/>
+            android:text="150"
+
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="10sp" />
+
+        <ImageButton
+            android:id="@+id/favoritesIcon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/ic_star_unfilled"
+            android:clickable="true" />
+
+        <TextView
+            android:id="@+id/tvFavCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="100"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="10sp" />
+
+
 
 
     </LinearLayout>

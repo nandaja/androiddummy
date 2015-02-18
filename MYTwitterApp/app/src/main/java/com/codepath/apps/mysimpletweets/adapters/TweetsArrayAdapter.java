@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.activities.ProfileActivity;
+import com.codepath.apps.mysimpletweets.activities.SearchActivity;
 import com.codepath.apps.mysimpletweets.activities.TimelineActivity;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.squareup.picasso.Picasso;
@@ -56,7 +58,12 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         ivUserProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getContext() instanceof  TimelineActivity)
                 ((TimelineActivity) getContext()).launchProfile(tweet.getUser().getScreenName());
+                else if(getContext() instanceof  ProfileActivity)
+                    ((ProfileActivity) getContext()).launchProfile(tweet.getUser().getScreenName());
+                else
+                    ((SearchActivity) getContext()).launchProfile(tweet.getUser().getScreenName());
             }
         });
 
@@ -109,6 +116,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             public void onClick(View v) {
 
                 ((TimelineActivity) getContext()).reTweet(tweet);
+
             }
         });
 

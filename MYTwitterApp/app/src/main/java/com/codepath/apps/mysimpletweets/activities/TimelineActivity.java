@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +27,9 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
     ViewPager viewPager;
     TweetsPagerAdapter tweetsPageAdapter;
+    String query;
+    SearchView searchView;
+    PagerSlidingTabStrip tabs;
 
 
     @Override
@@ -49,7 +54,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(tweetsPageAdapter);
 
-        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
 
     }
@@ -59,6 +64,25 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String q) {
+                // perform query here
+                query = q;
+                launchSearchResults(query);
+                return true;
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -90,20 +114,20 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
     }
 
 
-   @Override
-      protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-          if (resultCode == 100) {
+        if (resultCode == 100) {
 
-              if(data!=null) {
-                  if (data.getSerializableExtra("tweet") != null) {
-                      Tweet t = (Tweet) data.getSerializableExtra("tweet");
-                      viewPager.setCurrentItem(0);
-                      ((TweetsListFragment) tweetsPageAdapter.getRegisteredFragment(0)).updateTweetsView(t);
-                  }
-              }
-          }
-      }
+            if (data != null) {
+                if (data.getSerializableExtra("tweet") != null) {
+                    Tweet t = (Tweet) data.getSerializableExtra("tweet");
+                    viewPager.setCurrentItem(0);
+                    ((TweetsListFragment) tweetsPageAdapter.getRegisteredFragment(0)).updateTweetsView(t);
+                }
+            }
+        }
+    }
 
 
     public void postTweet() {
@@ -114,7 +138,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
     }
 
-    public void replyToTweet(Tweet tweet){
+    public void replyToTweet(Tweet tweet) {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         TweetFragment tweetDialog = TweetFragment.newInstance("Tweet");
         Bundle bundle = new Bundle();
@@ -142,7 +166,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
     }
 
-    public void onProfileView(MenuItem mi){
+    public void onProfileView(MenuItem mi) {
 
         if (mi.getItemId() == R.id.action_profile) {
 
@@ -155,12 +179,22 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
     }
 
-    public void launchProfile(String screenName){
+    public void launchProfile(String screenName) {
 
 
-            Intent i = new Intent(this, ProfileActivity.class);
-            i.putExtra("screenName", screenName);
-            startActivity(i);
+        Intent i = new Intent(this, ProfileActivity.class);
+        i.putExtra("screenName", screenName);
+        startActivity(i);
 
     }
+
+    public void launchSearchResults(String query) {
+        Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+        i.putExtra("searchString",query);
+
+        startActivity(i);
+
+    }
+
+
 }

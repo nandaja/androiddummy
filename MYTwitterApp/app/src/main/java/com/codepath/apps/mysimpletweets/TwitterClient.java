@@ -207,4 +207,58 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(apiURL, params, handler);
         Log.d("DEBUG", "TEST");
     }
+
+    //friends/list.json
+
+    public void getFollowings( AsyncHttpResponseHandler handler, String screenName) {
+        String apiURL = getApiUrl("friends/list.json");
+        RequestParams params = new RequestParams();
+
+        params.put("screen_name", screenName.replace("@", ""));
+
+
+        client.get(apiURL, params, handler);
+        Log.d("DEBUG", "TEST");
+    }
+
+    //followers/list.json
+
+    public void getFollowers( AsyncHttpResponseHandler handler, String screenName) {
+        String apiURL = getApiUrl("followers/list.json");
+        RequestParams params = new RequestParams();
+
+        params.put("screen_name", screenName.replace("@", ""));
+
+
+        client.get(apiURL, params, handler);
+        Log.d("DEBUG", "TEST");
+    }
+
+    /**
+     * "search/tweets.json"
+     * @param maxid
+     * @param sinceid
+     * @param tweetString
+     * @param handler
+     */
+    public void getSearchTweetResults(long maxid, long sinceid, String tweetString, AsyncHttpResponseHandler handler) {
+        String apiURL = getApiUrl("search/tweets.json");
+        RequestParams params = new RequestParams();
+
+        params.put("q", tweetString);
+        //First call
+        if(sinceid==0) {
+            params.put("count", 50);
+        }
+        else{
+            params.put("count", 50);
+            Log.d("DEBUG", "since id : " + sinceid + " maxId : " + maxid);
+            params.put("max_id", maxid - 1);
+            params.put("since_id", sinceid);
+        }
+
+        client.get(apiURL, params, handler);
+        Log.d("DEBUG", "TEST");
+    }
+
 }
