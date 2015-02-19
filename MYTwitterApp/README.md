@@ -89,3 +89,5 @@ Bonus: User can view their direct messages [ Note : my app does not support send
 Additionally, indicated retweet information on timeline
 
 Provided retweet capability from both timeline and detailed views.
+
+![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/MYTwitterApp/twitterapp-redux.gif)
