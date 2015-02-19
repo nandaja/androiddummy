@@ -90,4 +90,4 @@ Additionally, indicated retweet information on timeline
 
 Provided retweet capability from both timeline and detailed views.
 
-![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/MYTwitterApp/twitterapp-redux.gif)
+![ScreenShot](https://github.com/nandaja/androiddummy/blob/master/MYTwitterApp/screenshot.gif)
