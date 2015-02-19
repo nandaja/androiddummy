@@ -3,7 +3,7 @@ This is a Twitter client app that provides all basic operations on tweets -  vie
 composing a new tweet, replying to a tweet, retweeting, favorite / unfavorite actions on tweets. 
 The app uses a tabbed interface and fragments. Also supports searching tweets & profile views for authenticated user & for other users. 
 
-Total time spent : 14 hrs
+Total time spent : 24 hrs
 
 All required and optional user stories ( except sending direct messages ) have been completed.
 
