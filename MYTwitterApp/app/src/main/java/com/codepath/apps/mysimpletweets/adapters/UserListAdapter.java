@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.models.User;
@@ -29,11 +30,20 @@ public class UserListAdapter extends ArrayAdapter<User> {
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user,parent,false);
         }
-        ImageView ivImage = (ImageView)convertView.findViewById(R.id.ivUserImage);
-       // TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-       ivImage.setImageDrawable(null);
-     //   tvTitle.setText(Html.fromHtml(image.getTitle()));
-        Picasso.with(getContext()).load(user.getProfilePicURL()).resize(90,90).into(ivImage);
+
+        TextView tvUser = (TextView) convertView.findViewById(R.id.tvUser);
+        TextView tvScName = (TextView) convertView.findViewById(R.id.tvScName);
+        TextView tvDesc = (TextView) convertView.findViewById(R.id.tvDescription);
+
+
+        tvUser.setText(user.getName());
+        tvScName.setText(user.getScreenName());
+        tvDesc.setText(user.getDescription());
+
+        ImageView ivUserPic = (ImageView) convertView.findViewById(R.id.ivUserImage);
+        ivUserPic.setImageResource(android.R.color.transparent);
+        Picasso.with(getContext()).load(user.getProfilePicURL()).resize(80, 80).into(ivUserPic);
+
         return convertView;
 
     }

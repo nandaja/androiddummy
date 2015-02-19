@@ -198,7 +198,13 @@ public class User extends Model implements Serializable{
             user.setFollowingCount(userObj.getInt("friends_count"));
             user.setTweetsCount(userObj.getInt("statuses_count"));
             user.setDescription(userObj.getString("description"));
-            user.setProfile_background_image_url(userObj.getString("profile_background_image_url"));
+            if(userObj.has("profile_banner_url"))
+            user.setProfile_background_image_url(userObj.getString("profile_banner_url"));
+
+            if(user.getProfile_background_image_url()==null){
+                if(userObj.has("profile_background_image_url"))
+                    user.setProfile_background_image_url(userObj.getString("profile_background_image_url"));
+            }
             user.save();
         } catch (JSONException e) {
             e.printStackTrace();

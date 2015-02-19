@@ -62,6 +62,10 @@
             android:name=".activities.SearchActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".activities.MessagesActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>

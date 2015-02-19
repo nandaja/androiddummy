@@ -215,6 +215,7 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
 
         params.put("screen_name", screenName.replace("@", ""));
+        params.put("count", 200);
 
 
         client.get(apiURL, params, handler);
@@ -228,6 +229,7 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
 
         params.put("screen_name", screenName.replace("@", ""));
+        params.put("count", 200);
 
 
         client.get(apiURL, params, handler);
@@ -260,5 +262,25 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(apiURL, params, handler);
         Log.d("DEBUG", "TEST");
     }
+
+    public void getMessages(long maxid, long sinceid, AsyncHttpResponseHandler handler) {
+        String apiURL = getApiUrl("direct_messages.json");
+        RequestParams params = new RequestParams();
+
+        //First call
+        if(sinceid==0) {
+            params.put("count", 50);
+        }
+        else{
+            params.put("count", 50);
+            Log.d("DEBUG", "since id : " + sinceid + " maxId : " + maxid);
+            params.put("max_id", maxid - 1);
+            params.put("since_id", sinceid);
+        }
+
+        client.get(apiURL, params, handler);
+        Log.d("DEBUG", "TEST");
+    }
+
 
 }

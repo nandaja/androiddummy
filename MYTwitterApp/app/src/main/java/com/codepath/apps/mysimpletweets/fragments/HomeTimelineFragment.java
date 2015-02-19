@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.activities.DetailedTweetActivity;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
  */
 public class HomeTimelineFragment extends TweetsListFragment {
 
+    ProgressBar pb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -38,8 +40,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
         super.onCreateView(inflater, container, savedInstanceState);
 
+
         //Create your view
         View view = inflater.inflate(R.layout.fragment_tweets_list, container, false);
+         pb = (ProgressBar) view.findViewById(R.id.pbLoading);
         lvTweets = (ListView) view.findViewById(R.id.lvTweets);
         lvTweets.setAdapter(tweetAdapter);
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
@@ -149,6 +153,9 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
         }
         Log.d("DEBUG", "Since id and max id are : " + sinceId + " " + maxId);
+
+        pb.setVisibility(ProgressBar.VISIBLE);
+
         client.getHomeTimeLine(maxId, sinceId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] header, JSONArray response) {
@@ -158,6 +165,8 @@ public class HomeTimelineFragment extends TweetsListFragment {
                 tweets.addAll(Tweet.fromJSONArray(response));
                 tweetAdapter.notifyDataSetChanged();
                 swipeContainer.setRefreshing(false);
+                pb.setVisibility(ProgressBar.INVISIBLE);
+
 
             }
 
@@ -165,6 +174,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 
                 Log.d("DEBUG", "Failed to retrieve tweets" + errorResponse);
+
             }
         });
     }

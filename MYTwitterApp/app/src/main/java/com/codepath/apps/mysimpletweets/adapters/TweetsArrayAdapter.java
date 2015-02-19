@@ -94,10 +94,20 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             @Override
             public void onClick(View v) {
 
-                if(!tweet.isFavorited())
-                ((TimelineActivity) getContext()).favorite(tweet, position);
-                else
-                    ((TimelineActivity) getContext()).unFavorite(tweet, position);
+                if(!tweet.isFavorited()){
+                    if(getContext() instanceof  TimelineActivity)
+                        ((TimelineActivity) getContext()).favorite(tweet, position);
+                    else if(getContext() instanceof  ProfileActivity)
+                        ((ProfileActivity) getContext()).favorite(tweet, position);
+                }
+
+                else{
+                    if(getContext() instanceof  TimelineActivity)
+                        ((TimelineActivity) getContext()).unFavorite(tweet, position);
+                    else if(getContext() instanceof  ProfileActivity)
+                        ((ProfileActivity) getContext()).unFavorite(tweet, position);
+                }
+
             }
         });
 
@@ -105,7 +115,11 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         replyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((TimelineActivity) getContext()).replyToTweet(tweet);
+                if(getContext() instanceof  TimelineActivity)
+                    ((TimelineActivity) getContext()).replyToTweet(tweet);
+                else if(getContext() instanceof  ProfileActivity)
+                    ((ProfileActivity) getContext()).replyToTweet(tweet);
+
             }
         });
 
@@ -115,7 +129,11 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             @Override
             public void onClick(View v) {
 
-                ((TimelineActivity) getContext()).reTweet(tweet);
+                if(getContext() instanceof  TimelineActivity)
+                    ((TimelineActivity) getContext()).reTweet(tweet);
+                else if(getContext() instanceof  ProfileActivity)
+                    ((ProfileActivity) getContext()).reTweet(tweet);
+
 
             }
         });

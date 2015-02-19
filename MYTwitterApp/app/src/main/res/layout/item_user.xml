@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
 
-    <ImageView
-        android:layout_height="90dp"
+    <com.makeramen.RoundedImageView
         android:id="@+id/ivUserImage"
-        android:layout_width="90dp"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:contentDescription="Image result"
-        android:src="@drawable/ic_launcher"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="2dp"></com.makeramen.RoundedImageView>
 
-        />
+
+    <LinearLayout
+        android:id="@+id/lllayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivUserImage"
+        android:layout_toEndOf="@+id/ivUserImage"
+        android:layout_toRightOf="@+id/ivUserImage"
+        android:orientation="vertical"
+        android:paddingLeft="3dp">
+
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/tvScName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvUser"
+            android:autoLink="all"
+            android:paddingTop="1dp"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+
+            android:paddingTop="1dp"
+            android:textSize="10sp"
+
+            />
+
+
+    </LinearLayout>
 
     <!-- <TextView
          android:layout_width="wrap_content"
@@ -22,4 +69,4 @@
          android:ellipsize="end"
          android:id="@+id/tvTitle"
          /> -->
-</LinearLayout>
+</RelativeLayout>

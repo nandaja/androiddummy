@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
@@ -20,7 +21,6 @@ import com.codepath.apps.mysimpletweets.TwitterClient;
 import com.codepath.apps.mysimpletweets.activities.ProfileActivity;
 import com.codepath.apps.mysimpletweets.adapters.UserListAdapter;
 import com.codepath.apps.mysimpletweets.models.User;
-import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -38,7 +38,7 @@ public class FollowersFragment  extends Fragment  {
 
     private String screenName;
 
-    private StaggeredGridView gvResults;
+    private ListView gvResults;
     private ArrayList<User> users;
     private UserListAdapter userAdapter;
     TwitterClient client;
@@ -71,7 +71,7 @@ public class FollowersFragment  extends Fragment  {
 
     private void setUpViews(View view) {
         // etQuery = (EditText) findViewById(R.id.etQuery);
-        gvResults = (StaggeredGridView) view.findViewById(R.id.gvResults);
+        gvResults = (ListView) view.findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

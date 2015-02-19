@@ -16,10 +16,17 @@
         android:icon="@drawable/ic_tweet"
         />
 
+
     <item android:id="@+id/action_profile" android:title="Profile"
-        android:orderInCategory="3" app:showAsAction="always"
+        android:orderInCategory="4" app:showAsAction="always"
         android:icon="@drawable/ic_profile"
         android:onClick="onProfileView"
+        />
+
+    <item android:id="@+id/action_message" android:title="Message"
+        android:orderInCategory="3" app:showAsAction="always"
+        android:icon="@drawable/ic_message"
+
         />
 
 </menu>

@@ -38,6 +38,7 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#4099FF")));
+
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
@@ -83,6 +84,8 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
             }
         });
 
+
+
         return true;
     }
 
@@ -96,6 +99,14 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
         if (id == R.id.action_tweet) {
             postTweet();
+
+        }
+        else
+        if (id == R.id.action_message) {
+            SharedPreferences pref =
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String screenName = pref.getString("screenName", "");
+            viewMessages(screenName);
 
         }
 
@@ -194,6 +205,13 @@ public class TimelineActivity extends ActionBarActivity implements TweetCallBack
 
         startActivity(i);
 
+    }
+
+    public void viewMessages(String screenName){
+
+        Intent i = new Intent(this, MessagesActivity.class);
+        i.putExtra("screenName", screenName);
+        startActivity(i);
     }
 
 

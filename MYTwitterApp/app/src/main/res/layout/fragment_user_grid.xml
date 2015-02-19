@@ -1,16 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context=".ImageSearchActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ImageSearchActivity">
 
-    <!--  <GridView -->
-    <com.etsy.android.grid.StaggeredGridView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <!--
+     <com.etsy.android.grid.StaggeredGridView xmlns:app="http://schemas.android.com/apk/res-auto"
+         android:id="@+id/gvResults"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:divider="@android:color/black"
+         android:dividerHeight="6.0sp"
+         app:column_count="3"
+         app:item_margin="4dp" />
+     -->
+
+    <ListView
         android:id="@+id/gvResults"
-        app:item_margin="4dp"
-        app:column_count="3"
-        android:divider="@android:color/black"
-        android:dividerHeight="6.0sp"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:scaleType="fitXY" />
+
 </RelativeLayout>
