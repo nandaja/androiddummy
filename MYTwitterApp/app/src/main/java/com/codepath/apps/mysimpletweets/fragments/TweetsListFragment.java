@@ -124,6 +124,7 @@ public class TweetsListFragment  extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] header, JSONObject response) {
                 Tweet t1 = Tweet.buildTweet(response);
+                t1.setReTweetCount(t1.getReTweetCount()+1);
 
                 tweetAdapter.insert(t1, 0);
 

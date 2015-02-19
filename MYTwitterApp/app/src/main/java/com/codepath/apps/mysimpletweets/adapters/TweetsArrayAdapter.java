@@ -85,6 +85,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             ivFavorite.setBackgroundResource(R.drawable.ic_star_filled);
             tvFavCount.setTextColor(Color.parseColor("#ffa500"));
 
+
         }
         else{
             tvFavCount.setTextColor(Color.parseColor("#000000"));
