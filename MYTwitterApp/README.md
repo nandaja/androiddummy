@@ -83,3 +83,9 @@ Advanced: Improve the user interface and theme the app to feel twitter branded
 Advanced: User can search for tweets matching a particular query and see results
 
 Bonus: User can view their direct messages [ Note : my app does not support sending new messages ] 
+
+**Extensions**
+
+Additionally, indicated retweet information on timeline
+
+Provided retweet capability from both timeline and detailed views.
